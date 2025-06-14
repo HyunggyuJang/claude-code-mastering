@@ -208,7 +208,8 @@ with open('docs/claude-code-mastering-complete.html', 'w', encoding='utf-8') as 
 "
 
 # Mermaid 스크립트 추가
-sed -i '' 's|</body>|<!-- Mermaid 다이어그램 렌더링 -->\
+if [[ "$(uname)" == "Darwin" ]]; then
+    sed -i '' 's|</body>|<!-- Mermaid 다이어그램 렌더링 -->\
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>\
 <script>\
     mermaid.initialize({\
@@ -233,6 +234,33 @@ sed -i '' 's|</body>|<!-- Mermaid 다이어그램 렌더링 -->\
     });\
 </script>\
 </body>|' "docs/claude-code-mastering-complete.html"
+else
+    sed -i -e 's|</body>|<!-- Mermaid 다이어그램 렌더링 -->\
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>\
+<script>\
+    mermaid.initialize({\
+        startOnLoad: true,\
+        theme: '\''base'\'',\
+        themeVariables: {\
+            primaryColor: '\''#f8fafc'\'',\
+            primaryTextColor: '\''#1e293b'\'',\
+            primaryBorderColor: '\''#e2e8f0'\'',\
+            lineColor: '\''#94a3b8'\'',\
+            secondaryColor: '\''#f1f5f9'\'',\
+            tertiaryColor: '\''#e2e8f0'\''\
+        },\
+        flowchart: {\
+            htmlLabels: false,\
+            useMaxWidth: false\
+        },\
+        mindmap: {\
+            htmlLabels: false,\
+            useMaxWidth: false\
+        }\
+    });\
+</script>\
+</body>|' "docs/claude-code-mastering-complete.html"
+fi
 
 echo "✅ HTML 생성 완료: docs/claude-code-mastering-complete.html"
 

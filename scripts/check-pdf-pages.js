@@ -18,7 +18,8 @@ function checkPDFPages(pdfPath) {
         console.log(`📄 ${path.basename(pdfPath)}`);
         console.log(`   페이지 수: ${pageCount} 페이지`);
         console.log(`   파일 크기: ${fileSizeKB} KB`);
-        console.log(`   페이지당 평균: ${Math.round(fileSizeKB / pageCount)} KB/페이지`);
+        const avg = pageCount > 0 ? Math.round(fileSizeKB / pageCount) : 0;
+        console.log(`   페이지당 평균: ${avg} KB/페이지`);
         console.log('');
         
         return pageCount;
